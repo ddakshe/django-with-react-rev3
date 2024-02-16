@@ -8,7 +8,8 @@ from instagram.models import Post
 class AuthorSerializer(ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'is_staff')
+        # fields = ('username', 'email')
 
 
 class PostSerializer(ModelSerializer):
@@ -17,7 +18,13 @@ class PostSerializer(ModelSerializer):
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = [
+            'author',
+            'message',
+            'is_public',
+            'created_at',
+            'updated_at',
+        ]
         read_only_fields = ('created_at', 'updated_at')
 
     def create(self, validated_data):
